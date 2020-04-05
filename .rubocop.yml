@@ -1,0 +1,40 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  # Include common Ruby source files.
+  Include:
+    - '**/*.rb'
+    - '**/*.gemspec'
+    - '**/*.podspec'
+    - '**/*.jbuilder'
+    - '**/*.rake'
+    - '**/*.opal'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/Guardfile'
+    - '**/Podfile'
+    - '**/Thorfile'
+    - '**/Vagrantfile'
+    - '**/Berksfile'
+    - '**/Cheffile'
+    - '**/Vagabondfile'
+    - '**/Fastfile'
+    - '**/*Fastfile'
+  Exclude:
+    - 'spec/responses/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/environments/*'
+    - 'config/routes.rb'
+    - 'codeship/*'
+    - 'discord.rb'
+    - 'gandalf.rb'
+    - 'notify.rb'
+    - 'config/initializers/devise.rb'
+    - 'node_modules/'
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+

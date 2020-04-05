@@ -8,7 +8,9 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '5f22879bc283ed4ae1158982ff5d962e7c0de939927bf46cf04612466f63e549f4158a4df8e687f19c7a6a92e3b0d68f944fa6aeb71c4dced352e20ea3599e2a'
+  # config.secret_key = '5f22879bc283ed4ae1158982ff5d962e7c0de939927bf46cf04612
+  #                      466f63e549f4158a4df8e687f19c7a6a92e3b0d68f944fa6aeb71
+  #                      c4dced352e20ea3599e2a'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -18,7 +20,8 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  # config.mailer_sender =
+  # 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -37,12 +40,14 @@ Devise.setup do |config|
   # just :email. You can configure it to use [:username, :subdomain], so for
   # authenticating a user, both parameters are required. Remember that those
   # parameters are used only when authenticating and not when retrieving from
-  # session. If you need permissions, you should implement that in a before filter.
+  # session. If you need permissions, you should implement that in a
+  # before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
   # config.authentication_keys = [:email]
 
-  # Configure parameters from the request object used for authentication. Each entry
+  # Configure parameters from the request object used for authentication.
+  # Each entry
   # given should be a request method and it will automatically be passed to the
   # find_for_authentication method and considered in your model lookup. For instance,
   # if you set :request_keys to [:subdomain], :subdomain will be used on authentication.
@@ -61,7 +66,8 @@ Devise.setup do |config|
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
-  # given strategies, for example, `config.params_authenticatable = [:database]` will
+  # given strategies, for example, `config.params_authenticatable = [:database]
+  # ` will
   # enable it only for database (email + password) authentication.
   # config.params_authenticatable = true
 
