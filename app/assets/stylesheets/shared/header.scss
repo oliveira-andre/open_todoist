@@ -1,0 +1,49 @@
+#bHeader {
+  .navbar {
+    display: contents;
+    height: 43px;
+    padding-top: 43px;
+
+    .navbar-brand {
+      background: #282828;
+      min-height: 43px;
+
+      .left-side {
+        margin-top: 11.5px;
+        margin-left: 40px;
+
+        .input-search {
+          height: 20px;
+          width: 200px;
+          background: transparent;
+          color: white;
+          transition: 0.5s;
+
+          &::placeholder {
+            color: white;
+            opacity: 0.8;
+            font-size: 13px;
+          }
+
+          &:active {
+            border-color: #FFF !important;
+            width: 250px;
+          }
+
+          &:focus {
+            border-color: #FFF !important;
+            width: 250px;
+          }
+        }
+
+        .fa-bars {
+          cursor: pointer;
+          position: absolute;
+          top: 15px;
+          left: 18px;
+        }
+      }
+    }
+  }
+}
+
