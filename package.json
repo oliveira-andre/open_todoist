@@ -2,10 +2,12 @@
   "name": "open_todoist",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "bulma": "^0.8.1",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.1",
