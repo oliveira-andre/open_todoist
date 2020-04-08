@@ -22,3 +22,11 @@ html {
 p {
   color: white;
 }
+
+a {
+  color: white;
+
+  &:visited {
+    color: white;
+  }
+}
