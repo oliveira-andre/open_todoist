@@ -9,20 +9,22 @@
       min-height: 43px;
 
       .left-side {
-        margin-top: 11.5px;
+        margin-top: 8px;
         margin-left: 40px;
 
         .input-search {
-          height: 20px;
+          height: 25px;
           width: 200px;
           background: transparent;
           color: white;
           transition: 0.5s;
+          padding-bottom: 10px;
 
           &::placeholder {
             color: white;
             opacity: 0.8;
             font-size: 13px;
+            padding-bottom: 55px;
           }
 
           &:active {
@@ -39,8 +41,29 @@
         .fa-bars {
           cursor: pointer;
           position: absolute;
-          top: 15px;
+          top: 13px;
           left: 18px;
+        }
+      }
+
+      .right-side {
+        text-align: right;
+        display: flex;
+        width: 100%;
+        flex-direction: row-reverse;
+        margin-top: 2px; 
+        margin-right: 40px;
+
+        .item {
+          margin-left: 20px;
+
+          .weight-light {
+            font-weight: 200;
+          }
+
+          span {
+            margin-bottom: -10px !important;
+          }
         }
       }
     }

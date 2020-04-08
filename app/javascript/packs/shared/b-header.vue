@@ -5,7 +5,32 @@
         <div class="navbar-brand">
           <div class="left-side">
             <i class="fas fa-bars"></i>
-            <input placholder="Fast Search" class="input input-search">
+            <input placeholder="Fast Search" class="input input-search">
+          </div>
+          <div class="right-side">
+            <div class="item is-size-5">
+              <a href="#">
+                <i class="fas fa-cog"></i>
+              </a>
+            </div>
+            <div class="item is-size-5">
+              <a href="#">
+                <i class="fas fa-bell"></i>
+              </a>
+            </div>
+            <div class="item is-size-5">
+              <a href="">
+                <i class="fas fa-chart-line"></i>
+                <span class="is-size-6">
+                  0/5
+                </span>
+              </a>
+            </div>
+            <div class="item is-size-5">
+              <a href="#">
+                <i class="fas fa-plus"></i>
+              </a>
+            </div>
           </div>
         </div>
       </nav>
