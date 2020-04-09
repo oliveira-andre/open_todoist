@@ -1,1 +1,4 @@
-<home></home>
+<home
+  :tasks="<%= @tasks.to_json %>"
+  :has_tasks="<%= !@tasks.empty? %>"   
+></home>
