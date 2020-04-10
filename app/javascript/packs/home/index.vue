@@ -3,9 +3,9 @@
     <div class="container">
       <div class="columns is-multiline">
         <div class="column is-12 is-flex">
-          <h1 class="title is-size-4">
+          <p class="title is-size-4">
             Caixa de entrada
-          </h1>
+          </p>
           <div class="right-side">
             <i class="far fa-comment-alt is-size-5"></i>
             <i class="fas fa-ellipsis-h is-size-5"></i>
