@@ -31,3 +31,31 @@ a {
     color: white;
   }
 }
+
+label {
+  color: white !important;
+}
+
+input {
+  background: transparent !important;
+  color: white;
+
+  &:active {
+    border-color: #FFF !important;
+  }
+
+  &:focus {
+    border-color: #FFF !important;
+  }
+}
+
+.is-danger {
+  background-color: #de4c4a !important;
+}
+
+.modal-content {
+  background-color: #282828 !important;
+  padding: 30px;
+  border-radius: 5px;
+}
+
