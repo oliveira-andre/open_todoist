@@ -1,6 +1,7 @@
 @import "bulma/bulma";
 $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/css/all.css";
+@import "toastr/toastr";
 @import "shared/*";
 @import "controllers/*";
 
@@ -21,7 +22,7 @@ html {
 }
 
 p {
-  color: white;
+  color: white !important;
 }
 
 a {
