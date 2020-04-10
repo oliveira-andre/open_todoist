@@ -19,13 +19,6 @@
           transition: 0.5s;
           padding-bottom: 10px;
 
-          &::placeholder {
-            color: white;
-            opacity: 0.8;
-            font-size: 13px;
-            padding-bottom: 55px;
-          }
-
           &:active {
             border-color: #FFF !important;
             width: 250px;
@@ -34,6 +27,13 @@
           &:focus {
             border-color: #FFF !important;
             width: 250px;
+          }
+
+          &::placeholder {
+            color: white;
+            opacity: 0.8;
+            font-size: 13px;
+            padding-bottom: 55px;
           }
         }
 
@@ -63,9 +63,16 @@
           span {
             margin-bottom: -10px !important;
           }
+
+          button {
+            margin-top: 5px;
+          }
         }
       }
     }
+  }
+  .modal-content {
+    width: 300px !important;
   }
 }
 
