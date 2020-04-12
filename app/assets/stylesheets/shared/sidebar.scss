@@ -1,0 +1,20 @@
+#bSidebar {
+  width: 305px;
+  height: 100%;
+  left: 0;
+  top: 0px;
+  box-sizing: border-box;
+  margin-top: 44px;
+  padding-top: 30px;
+  padding-left: 35px;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  z-index: 199;
+  background: #282828;
+  transition: 0.5s;
+
+  &.exited {
+    left: -305px;
+  }
+}
