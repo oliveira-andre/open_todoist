@@ -32,7 +32,7 @@ AllCops:
     - 'gandalf.rb'
     - 'notify.rb'
     - 'config/initializers/devise.rb'
-    - 'node_modules/'
+    - 'node_modules/**/*'
 
 Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
