@@ -4,7 +4,7 @@
       <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <div class="left-side">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars" v-on:click="toggleSidebar"></i>
             <input placeholder="Fast Search" class="input input-search">
           </div>
           <div class="right-side" v-if="is_signed_in">
@@ -72,7 +72,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import toastr from 'toastr/toastr';
 
 export default {
@@ -80,7 +79,7 @@ export default {
   data: function () {
     return {
       email: '',
-      password: ''
+      password: '',
     }
   },
   methods: {
@@ -91,23 +90,34 @@ export default {
     closeLoginModal: function(event) {
       event.target.parentNode.classList.remove('is-active');
     },
+    toggleSidebar: function() {
+      const sidebar = document.getElementById('bSidebar');
+      const body = document.getElementById('home');
+      
+      if(sidebar.classList.contains('exited')){
+        sidebar.classList.remove('exited');
+        home.classList.add('menu_show');
+      } else {
+        sidebar.classList.add('exited');
+        home.classList.remove('menu_show');
+      }
+    },
     onSubmit: function() {
-        axios.post('http://localhost:3000/users/sign_in', {
-          users: { 
-            email: email.value,
-            password: password.value 
-          } 
-        }).then(response => { 
-          if(response.status == 202) {
-            Turbolinks.visit('/');
-            toastr.success(response.data.message);
-          }
-        })
-          .catch ( e => { 
-            toastr.error('Email or Password are wrong');
-          });
-      },
-    }
+      this.$http.post('/users/sign_in', {
+        users: { 
+          email: email.value,
+          password: password.value 
+        } 
+      }).then(response => { 
+        if(response.status == 202) {
+          toastr.success(response.data.message);
+          Tubolinks.visit('/');
+        }
+      }, response => { 
+          toastr.error('Email or Password are wrong');
+        });
+    },
   }
+}
 </script>
 
