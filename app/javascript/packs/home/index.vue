@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="home" class="menu_show">
     <div class="container">
       <div class="columns is-multiline">
         <div class="column is-12 is-flex">
