@@ -17,4 +17,42 @@
   &.exited {
     left: -305px;
   }
+
+  ul.main_filter {
+    li {
+      min-height: 24px;
+      font-size: 14px;
+      color: #333;
+      list-style: none;
+      cursor: pointer;
+      padding: 5px 16px 5px 5px;
+      transition: color .1s ease-in,background-color .1s ease-in;
+      line-height: 1.25;
+      border-radius: 3px;
+      align-items: center;
+      margin-bottom: 5px;
+
+      &:hover {
+        background: #363636;
+      }
+
+      &.current {
+        background: #363636;
+        font-weight: bold;
+      }
+
+      a {
+        display: inline-block;
+        width: 187px;
+        vertical-align: top;
+        min-height: 24px;
+        line-height: 24px;
+        word-break: break-word;
+
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
 }
