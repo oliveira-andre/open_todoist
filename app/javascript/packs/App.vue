@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <Header/>
-    <Sidebar/>
-      <v-content>
+  <div>
+    <Header />
+    <Sidebar />
+      <div>
         <router-view></router-view>
-      </v-content>
-  </v-app>
+      </div>
+  </div>
 </template>
 
 <script>
