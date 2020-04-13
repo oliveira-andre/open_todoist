@@ -75,11 +75,27 @@
   import toastr from 'toastr/toastr';
 
 export default {
-  props: ["current_user", "is_signed_in"],
   data: function () {
     return {
       email: '',
       password: '',
+      token: '',
+      current_user: {},
+      is_signed_in: false,
+    }
+  },
+  mounted: function() {
+    this.token = localStorage.getItem('token');
+    if(!(this.token == '')) {
+      this.$http.get(`/api/v1/users/${this.token}`, {})
+        .then(response => {
+          if(response.status == 200) {
+            this.current_user = response.body;
+            this.is_signed_in = true
+          }
+        }, response => {
+          toastr.error('Not logged in');
+        });
     }
   },
   methods: {
@@ -103,15 +119,17 @@ export default {
       }
     },
     onSubmit: function() {
-      this.$http.post('/users/sign_in', {
+      this.$http.post('/api/v1/sessions', {
         users: { 
           email: email.value,
           password: password.value 
         } 
       }).then(response => { 
-        if(response.status == 202) {
-          toastr.success(response.data.message);
-          Tubolinks.visit('/');
+        if(response.status == 201) {
+          toastr.success('You are signed in');
+          localStorage.setItem('token', response.data.authentication_token);
+          this.token = localStorage.getItem('token');
+          Turbolinks.visit('/');
         }
       }, response => { 
           toastr.error('Email or Password are wrong');
