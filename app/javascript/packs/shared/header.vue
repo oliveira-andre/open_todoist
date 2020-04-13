@@ -1,5 +1,5 @@
 <template>
-  <div id="bHeader">
+  <div id="bHeader" :key="token">
     <header>
       <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -84,19 +84,11 @@ export default {
       is_signed_in: false,
     }
   },
-  mounted: function() {
-    this.token = localStorage.getItem('token');
-    if(!(this.token == '')) {
-      this.$http.get(`/api/v1/users/${this.token}`, {})
-        .then(response => {
-          if(response.status == 200) {
-            this.current_user = response.body;
-            this.is_signed_in = true
-          }
-        }, response => {
-          toastr.error('Not logged in');
-        });
-    }
+  created: function() {
+    this.loadUser();
+  },
+  updated: function() {
+    this.loadUser();
   },
   methods: {
     openLoginModal: function(event) {
@@ -128,12 +120,25 @@ export default {
         if(response.status == 201) {
           toastr.success('You are signed in');
           localStorage.setItem('token', response.data.authentication_token);
-          this.token = localStorage.getItem('token');
-          Turbolinks.visit('/');
+          this.token = response.data.authentication_token;
         }
       }, response => { 
           toastr.error('Email or Password are wrong');
         });
+    },
+    loadUser: function() {  
+      this.token = localStorage.getItem('token');
+      if(!(this.token == '')) {
+        this.$http.get(`/api/v1/users/${this.token}`, {})
+          .then(response => {
+            if(response.status == 200) {
+              this.current_user = response.body;
+              this.is_signed_in = true
+            }
+          }, response => {
+            toastr.error('Not logged in');
+          });
+    }
     },
   }
 }
