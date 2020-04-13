@@ -10,7 +10,6 @@
   position: fixed;
   overflow-x: hidden;
   overflow-y: hidden;
-  z-index: 199;
   background: #282828;
   transition: 0.5s;
 
@@ -25,12 +24,12 @@
       color: #333;
       list-style: none;
       cursor: pointer;
-      padding: 5px 16px 5px 5px;
       transition: color .1s ease-in,background-color .1s ease-in;
       line-height: 1.25;
       border-radius: 3px;
       align-items: center;
       margin-bottom: 5px;
+      padding: 0px;
 
       &:hover {
         background: #363636;
@@ -48,6 +47,7 @@
         min-height: 24px;
         line-height: 24px;
         word-break: break-word;
+        padding: 5px 16px 5px 5px;
 
         i {
           margin-right: 5px;
