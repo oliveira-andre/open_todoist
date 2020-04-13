@@ -16,6 +16,7 @@ gem 'sass-rails', '>= 6'
 gem 'simple_token_authentication'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
