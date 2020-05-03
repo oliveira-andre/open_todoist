@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class SessionSerializer < ActiveModel::Serializer
@@ -5,4 +7,3 @@ module Api
     end
   end
 end
-
