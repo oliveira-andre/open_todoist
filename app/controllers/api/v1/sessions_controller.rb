@@ -8,7 +8,7 @@ module Api
 
       def create
         if valid_password?
-          success_response(data: @user, model: 'Session', status: :created) 
+          success_response(data: @user, model: 'Session', status: :created)
         else
           error_response(data: ['teste'])
         end
