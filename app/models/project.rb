@@ -4,4 +4,6 @@ class Project < ApplicationRecord
   enum status: { active: 0, finalized: 1, archived: 2 }
 
   validates :title, :status, presence: true
+
+  has_many :tasks
 end
