@@ -5,19 +5,19 @@
         <li v-on:click="switchCurrentTab" class="current">
           <router-link v-on:click="switchCurrentTab" to="/">
            <i class="fas fa-inbox has-text-primary is-size-6"></i> 
-            Caixa de entrada
+            Inbox
           </router-link>
         </li>
         <li v-on:click="switchCurrentTab">
           <router-link to="/today">
             <i class="far fa-calendar has-text-info is-size-6"></i>
-            Hoje
+            Today
           </router-link>
         </li>
         <li v-on:click="switchCurrentTab">
           <router-link to="/week">
             <i class="far fa-calendar-alt has-text-warning is-size-6"></i>
-            Próximos 7 dias
+            Next 7 days
           </router-link>
         </li>
       </div>
