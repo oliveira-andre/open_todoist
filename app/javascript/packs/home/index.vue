@@ -13,7 +13,7 @@
         </div>
         <div class="column is-12 has-text-centered">
           <div v-if="has_tasks">
-            teste
+            <p>teste</p>
           </div>
           <div v-else class="center">
             <p>Parece que você não tem nada agendado</p>
@@ -27,6 +27,25 @@
 
 <script>
 export default {
-  props: ["tasks", "has_tasks"]
+  data: function() {
+    return {
+      has_tasks: false,
+      tasks: [],
+      token: '',
+    }
+  },
+  created: function() {
+    this.token = localStorage.getItem('token');
+    if(this.token !== '') {
+      this.$http.get('/api/v1/tasks', {
+        headers: { token: this.token }
+      }).then(response => {
+        if(response.status == 200) {
+          this.tasks = response.body;
+          this.has_tasks = this.tasks.length !== 0;
+        }
+      });
+    }
+  },
 }
 </script>
