@@ -13,9 +13,12 @@
         </div>
         <div class="column is-12">
           <div v-if="has_projects">
-            <ul class="projects">
+            <ul class="projects" v-on:click="toggleTasks">
               <template v-for="project in projects">
-                <li>{{ project.title }}</li>
+                <li class="has-text-weight-bold">
+                  <i class="fas fa-chevron-down is-size-7"></i> {{ project.title }}
+                  <span class="has-text-weight-normal is-size-7"> {{ project.tasks.length }}</span>
+                </li>
                 <ul class="tasks">
                   <template v-for="task in project.tasks">
                     <li>{{ task.title }}</li>
@@ -25,7 +28,7 @@
             </ul>
           </div>
           <div v-else class="has-text-centered center">
-            <p>Appearly you don't ave any tasks</p>
+            <p>Appearly you don't have any tasks</p>
             <button class="button is-danger is-small">New Task</button>
           </div>
         </div>
@@ -55,6 +58,31 @@ export default {
         }
       });
     }
+  },
+  methods: {
+    toggleTasks: function(e) {
+      if(e.target.classList.contains('fas')) {
+        var icon = e.target;
+        var tasks = e.target.parentNode.parentNode.lastChild;
+      } else {
+        var icon = e.target.firstElementChild;
+        var tasks = e.target.parentNode.lastChild;
+      }
+
+      if(icon.classList.contains('fa-chevron-down')){
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-right');
+      } else { 
+        icon.classList.remove('fa-chevron-right');
+        icon.classList.add('fa-chevron-down');
+      }
+
+      if(tasks.classList.contains('is-hidden')){
+        tasks.classList.remove('is-hidden');
+      } else {
+        tasks.classList.add('is-hidden');
+      }
+    },
   },
 }
 </script>
