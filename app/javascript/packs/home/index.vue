@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="column is-12">
-          <div v-if="has_projects">
+          <div v-if="hasProjects">
             <ul class="projects" v-on:click="toggleTasks">
               <template v-for="project in projects">
                 <li class="has-text-weight-bold">
@@ -28,8 +28,13 @@
             </ul>
           </div>
           <div v-else class="has-text-centered center">
-            <p>Appearly you don't have any tasks</p>
-            <button class="button is-danger is-small">New Task</button>
+            <template v-if="newProject">
+              <input type="text" class="input" placeholder="Type your project title" v-model="projectTitle" v-on:blur="createProject">
+            </template>
+            <template v-else>
+              <p>Appearly you don't have any project</p>
+              <button class="button is-danger is-small" v-on:click="startNewProject">New Project</button>
+            </template>
           </div>
         </div>
       </div>
@@ -38,28 +43,52 @@
 </template>
 
 <script>
+  import toastr from 'toastr/toastr';
+
 export default {
   data: function() {
     return {
-      has_projects: false,
+      hasProjects: false,
       projects: [],
       token: '',
+      newProject: false,
+      projectTitle: '',
     }
   },
   created: function() {
     this.token = localStorage.getItem('token');
-    if(this.token !== '') {
+    if(this.token == null) {
+      this.$router.push('/login')
+    } else {
       this.$http.get('/api/v1/projects', {
         headers: { token: this.token }
       }).then(response => {
         if(response.status == 200) {
           this.projects = response.body;
-          this.has_projects = this.projects.length !== 0;
+          this.hasProjects = this.projects.length !== 0;
         }
       });
     }
   },
   methods: {
+    startNewProject: function(e) {
+      this.newProject = true
+    },
+    createProject: function() {
+      if(this.projectTitle === "") {
+        this.newProject = false
+      } else {
+        this.$http.post('/api/v1/projects', {
+          projects: {
+            title: this.projectTitle,
+          }
+        }, { headers: { token: this.token } }).then(response => {
+          Turbolinks.visit('/');
+        }, response => {
+          toastr.error('Something got wrong');
+        });
+      }
+    },
     toggleTasks: function(e) {
       if(e.target.classList.contains('fas')) {
         var icon = e.target;
