@@ -3,7 +3,6 @@
 class Task < ApplicationRecord
   enum status: { opened: 0, finalized: 1, archived: 2 }
 
-  belongs_to :user
   belongs_to :project
 
   validates :title, :status, :user_id, :project_id, presence: true

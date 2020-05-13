@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 2020_04_10_224823) do
     t.string "title", default: "", null: false
     t.integer "status", default: 0, null: false
     t.datetime "schedule_date"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -35,12 +37,10 @@ ActiveRecord::Schema.define(version: 2020_04_10_224823) do
     t.text "description"
     t.integer "status", default: 0, null: false
     t.datetime "schedule_date"
-    t.bigint "user_id"
     t.bigint "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_tasks_on_project_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_224823) do
     t.index ["score_id"], name: "index_users_on_score_id"
   end
 
+  add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
-  add_foreign_key "tasks", "users"
   add_foreign_key "users", "scores"
 end

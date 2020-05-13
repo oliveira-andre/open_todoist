@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   belongs_to :score
 
-  has_many :tasks
+  has_many :projects
 
   validates :email, :password, :status, :score_id, presence: true
 

@@ -6,6 +6,7 @@ class Projects < ActiveRecord::Migration[6.0]
       t.string :title, null: false, default: ''
       t.integer :status, null: false, default: 0
       t.datetime :schedule_date
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

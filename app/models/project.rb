@@ -5,5 +5,6 @@ class Project < ApplicationRecord
 
   validates :title, :status, presence: true
 
+  belongs_to :user
   has_many :tasks
 end
