@@ -1,5 +1,5 @@
 <template>
-  <div id="bSidebar">
+  <div id="bSidebar" v-if="is_signed_in">
     <ul class="main_filter is-flex">
       <div class="columns is-multiline">
         <li v-on:click="switchCurrentTab" class="current">
@@ -29,6 +29,25 @@
     export default {
       data: function() {
         return {
+          is_signed_in: false
+        }
+      },
+      created: function() {
+        if(window.location.pathname !== '/login') {
+          this.token = localStorage.getItem('token');
+          if(this.token == null) {
+            this.$router.push('/login');
+          } else {
+            this.$http.get(`/api/v1/users/${this.token}`, {})
+              .then(response => {
+                if(response.status == 200) {
+                  this.current_user = response.body;
+                  this.is_signed_in = true
+                }
+              }, response => {
+                toastr.error('Not logged in');
+              }); 
+          }
         }
       },
       methods: {
