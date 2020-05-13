@@ -1,5 +1,5 @@
 <template>
-  <div id="bHeader" :key="token">
+  <div id="bHeader" v-if="is_signed_in">
     <header>
       <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -7,66 +7,15 @@
             <i class="fas fa-bars" v-on:click="toggleSidebar"></i>
             <input placeholder="Fast Search" class="input input-search">
           </div>
-          <div class="right-side" v-if="is_signed_in">
-            <div class="item is-size-5">
-              <a href="#">
-                <i class="fas fa-cog"></i>
-              </a>
-            </div>
-            <div class="item is-size-5">
-              <a href="#">
-                <i class="fas fa-bell"></i>
-              </a>
-            </div>
-            <div class="item is-size-5">
-              <a href="">
-                <i class="fas fa-chart-line"></i>
-                <span class="is-size-6">
-                  0/5
-                </span>
-              </a>
-            </div>
-            <div class="item is-size-5">
-              <a href="#">
-                <i class="fas fa-plus"></i>
-              </a>
-            </div>
-          </div>
-          <div class="right-side" v-else>
+          <div class="right-side">
             <div class="item">
-              <button class="button is-danger is-small" data-target="login-modal" v-on:click="openLoginModal">
-                Login
+              <button class="button is-danger is-small" v-on:click="logout">
+                Logout
               </button>
             </div>
           </div>
         </div>
       </nav>
-      <div class="modal" id="login-modal">
-        <div class="modal-background" v-on:click="closeLoginModal"></div>
-        <div class="modal-content">
-          <form v-on:submit.prevent="onSubmit">
-            <div class="field">
-              <label class="label" for="email">
-                Email
-              </label>
-              <div class="control">
-                <input class="input" type="email" id="email" v-model="email">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="password">
-                Password
-              </label>
-              <div class="control">
-                <input class="input" type="password" id="password" v-model="password">
-              </div>
-            </div>
-            <button class="button is-danger is-fullwidth" type="submit">
-              Login
-            </button>
-          </form>
-        </div>
-      </div>
     </header>
   </div>
 </template>
@@ -77,27 +26,15 @@
 export default {
   data: function () {
     return {
-      email: '',
-      password: '',
-      token: '',
-      current_user: {},
       is_signed_in: false,
     }
   },
   created: function() {
+    if(window.location.pathname !== '/login') {
     this.loadUser();
-  },
-  updated: function() {
-    this.loadUser();
+    }
   },
   methods: {
-    openLoginModal: function(event) {
-      const modal = document.getElementById(event.target.dataset.target);
-      modal.classList.add('is-active');
-    },
-    closeLoginModal: function(event) {
-      event.target.parentNode.classList.remove('is-active');
-    },
     toggleSidebar: function() {
       const sidebar = document.getElementById('bSidebar');
       const body = document.getElementById('home');
@@ -110,37 +47,26 @@ export default {
         home.classList.remove('menu_show');
       }
     },
-    onSubmit: function() {
-      this.$http.post('/api/v1/sessions', {
-        users: { 
-          email: email.value,
-          password: password.value 
-        } 
-      }).then(response => { 
-        if(response.status == 201) {
-          toastr.success('You are signed in');
-          localStorage.setItem('token', response.data.authentication_token);
-          this.token = response.data.authentication_token;
-        }
-      }, response => { 
-          toastr.error('Email or Password are wrong');
-        });
-    },
     loadUser: function() {  
-      this.token = localStorage.getItem('token');
-      if(!(this.token == '')) {
+      this.token = localStorage.getItem('token'); 
+      if(this.token == null) {
+        this.$router.push('/login');
+      } else {
         this.$http.get(`/api/v1/users/${this.token}`, {})
           .then(response => {
             if(response.status == 200) {
-              this.current_user = response.body;
               this.is_signed_in = true
             }
           }, response => {
             toastr.error('Not logged in');
           });
-    }
+      }
+    },
+    logout: function() {
+      localStorage.clear();
+      Turbolinks.visit('/login');
     },
   }
 }
-</script>
+  </script>
 
