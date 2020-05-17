@@ -13,26 +13,38 @@
         </div>
         <div class="column is-12">
           <div v-if="hasProjects">
-            <ul class="projects" v-on:click="toggleTasks">
+            <ul class="projects">
               <template v-for="project in projects">
-                <li class="has-text-weight-bold">
+                <li class="has-text-weight-bold" v-on:click.self="toggleTasks">
                   <i class="fas fa-chevron-down is-size-7"></i> {{ project.title }}
                   <span class="has-text-weight-normal is-size-7"> {{ project.tasks.length }}</span>
+                  <div class="is-pulled-right">
+                    <button class="button is-danger is-small">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="button is-primary is-small" :data-target="project.id" v-on:click.stop.prevent.self="startNewTask">
+                      <i class="is-pulled-right fas fa-plus"></i>
+                    </button>
+                  </div>
                 </li>
+                <input type="text" :id="'new-task-on-project-'+project.id" class="input is-hidden" placeholder="Type the title of task" v-model="taskTitle" v-on:keyup.enter="createTask">
                 <ul class="tasks">
                   <template v-for="task in project.tasks">
-                    <li>{{ task.title }}</li>
+                    <div class="column is-12">
+                      <li>{{ task.title }}</li>
+                      <i class="is-pulled-right fas fa-trash has-text-danger" :data-target="task.id" v-on:click.self="deleteTask"></i>
+                    </div>
                   </template>
                 </ul>
               </template>
             </ul>
           </div>
-          <div v-else class="has-text-centered center">
+          <div class="has-text-centered center">
             <template v-if="newProject">
-              <input type="text" class="input" placeholder="Type your project title" v-model="projectTitle" v-on:blur="createProject">
+              <input type="text" class="input" placeholder="Type your project title" v-model="projectTitle" v-on:keyup.enter="createProject">
             </template>
             <template v-else>
-              <p>Appearly you don't have any project</p>
+              <p v-if="!hasProjects">Appearly you don't have any project</p>
               <button class="button is-danger is-small" v-on:click="startNewProject">New Project</button>
             </template>
           </div>
@@ -43,36 +55,43 @@
 </template>
 
 <script>
-  import toastr from 'toastr/toastr';
+    import toastr from 'toastr/toastr';
 
-export default {
-  data: function() {
-    return {
-      hasProjects: false,
-      projects: [],
-      token: '',
-      newProject: false,
-      projectTitle: '',
-    }
-  },
-  created: function() {
-    this.token = localStorage.getItem('token');
-    if(this.token == null) {
-      this.$router.push('/login')
-    } else {
-      this.$http.get('/api/v1/projects', {
-        headers: { token: this.token }
-      }).then(response => {
-        if(response.status == 200) {
-          this.projects = response.body;
-          this.hasProjects = this.projects.length !== 0;
+    export default {
+      data: function() {
+        return {
+          hasProjects: false,
+          projects: [],
+          token: '',
+          newProject: false,
+          projectTitle: '',
+          projectId: '',
+          taskTitle: '',
         }
+      },
+      created: function() {
+        this.token = localStorage.getItem('token');
+        if(this.token == null) {
+          this.$router.push('/login')
+        } else {
+          this.$http.get('/api/v1/projects', {
+            headers: { token: this.token }
+          }).then(response => {
+            if(response.status == 200) {
+              this.projects = response.body;
+              this.hasProjects = this.projects.length !== 0;
+            }
       });
     }
   },
   methods: {
     startNewProject: function(e) {
       this.newProject = true
+    },
+    startNewTask: function(e) {
+      this.projectId = e.target.dataset.target;
+      let input = document.querySelector(`#new-task-on-project-${this.projectId}`);
+      input.classList.remove('is-hidden');
     },
     createProject: function() {
       if(this.projectTitle === "") {
@@ -83,11 +102,47 @@ export default {
             title: this.projectTitle,
           }
         }, { headers: { token: this.token } }).then(response => {
-          Turbolinks.visit('/');
+          toastr.success('Project created!');
         }, response => {
           toastr.error('Something got wrong');
         });
       }
+    },
+    createTask: function() {
+      let input = document.querySelector(`#new-task-on-project-${this.projectId}`);
+      input.classList.add('is-hidden');
+
+      if(this.taskTitle === "") return false
+
+      this.$http.post(`/api/v1/projects/${this.projectId}/tasks`, {
+        tasks: {
+          title: this.taskTitle,
+        }
+      }, { headers: { token: this.token } }).then(response => {
+        this.taskTitle = '';
+        let projects = this.projects.find(project => project.id == this.projectId);
+        projects.tasks.push(response.body);
+        toastr.success('Task created!');
+      }, response => {
+        toastr.error('Something got wrong');
+      });
+    },
+    deleteProject: function() {},
+    deleteTask: function(e) {
+      let id = e.target.dataset.target;
+
+      this.$http.post(`/api/v1/projects/${this.projectId}/tasks`, {
+        tasks: {
+          title: this.taskTitle,
+        }
+      }, { headers: { token: this.token } }).then(response => {
+        this.taskTitle = '';
+        let projects = this.projects.find(project => project.id == this.projectId);
+        projects.tasks.push(response.body);
+        toastr.success('Task created!');
+      }, response => {
+        toastr.error('Something got wrong');
+      });
     },
     toggleTasks: function(e) {
       if(e.target.classList.contains('fas')) {
