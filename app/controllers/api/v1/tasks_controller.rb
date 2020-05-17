@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+module Api
+  module V1
+    class TasksController < ApplicationController
+      before_action :load_user, :load_project
+
+      def create
+        @task = Task.create(tasks_params)
+
+        if @task
+          success_response(data: @task, model: 'Task', status: :created)
+        else
+          error_response
+        end
+      end
+
+      private
+
+      def load_project
+        @project = @user.projects.find(params[:project_id])
+      end
+
+      def tasks_params
+        params.require(:tasks).permit(:title).merge(project_id: @project.id)
+      end
+    end
+  end
+end
