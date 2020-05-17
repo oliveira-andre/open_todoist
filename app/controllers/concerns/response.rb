@@ -14,9 +14,7 @@ module Response
     end
   end
 
-  def error_response(data:)
-    return unless data
-
-    render json: data.errors, status: :unprocessable_entity
+  def error_response
+    render json: {}, status: :unprocessable_entity
   end
 end
