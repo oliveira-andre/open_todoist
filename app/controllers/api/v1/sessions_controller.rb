@@ -10,7 +10,7 @@ module Api
         if valid_password?
           success_response(data: @user, model: 'Session', status: :created)
         else
-          error_response(data: ['teste'])
+          error_response
         end
       end
 

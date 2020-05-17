@@ -7,7 +7,7 @@ module Api
 
       def show
         success_response(data: @user, model: 'User') if @user
-        error_response(data: '') unless @user
+        error_response unless @user
       end
 
       private
