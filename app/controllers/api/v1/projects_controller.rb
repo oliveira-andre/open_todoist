@@ -5,6 +5,7 @@ module Api
     class ProjectsController < ApplicationController
       before_action :load_user
       before_action :load_projects, only: :index
+      before_action :load_project, only: :destroy
 
       def index
         success_response(data: @projects, model: 'Project')
@@ -20,6 +21,11 @@ module Api
         end
       end
 
+      def destroy
+        @project.archived!
+        success_response(data: @project, model: 'Project', status: :ok)
+      end
+
       private
 
       def projects_params
@@ -27,7 +33,11 @@ module Api
       end
 
       def load_projects
-        @projects = @user.projects
+        @projects = @user.projects.active
+      end
+
+      def load_project
+        @project = @user.projects.find(params[:id])
       end
     end
   end

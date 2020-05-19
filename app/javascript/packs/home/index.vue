@@ -19,7 +19,7 @@
                   <i class="fas fa-chevron-down is-size-7"></i> {{ project.title }}
                   <span class="has-text-weight-normal is-size-7"> {{ project.tasks.length }}</span>
                   <div class="is-pulled-right">
-                    <button class="button is-danger is-small">
+                    <button class="button is-danger is-small" :data-target="project.id" v-on:click.stop.prevent.self="deleteProject">
                       <i class="fas fa-trash"></i>
                     </button>
                     <button class="button is-primary is-small" :data-target="project.id" v-on:click.stop.prevent.self="startNewTask">
@@ -29,10 +29,12 @@
                 </li>
                 <input type="text" :id="'new-task-on-project-'+project.id" class="input is-hidden" placeholder="Type the title of task" v-model="taskTitle" v-on:keyup.enter="createTask">
                 <ul class="tasks">
-                  <template v-for="task in project.tasks">
+                  <template v-for="task in project.tasks.filter(task => task.status == 'opened')">
                     <div class="column is-12">
-                      <li>{{ task.title }}</li>
-                      <i class="is-pulled-right fas fa-trash has-text-danger" :data-target="task.id" v-on:click.self="deleteTask"></i>
+                      <li>
+                        {{ task.title }}
+                      <i class="is-pulled-right fas fa-trash has-text-danger" :data-project-id="project.id" :data-target="task.id" v-on:click.self="deleteTask"></i>
+                      </li>
                     </div>
                   </template>
                 </ul>
@@ -94,25 +96,28 @@
       input.classList.remove('is-hidden');
     },
     createProject: function() {
-      if(this.projectTitle === "") {
-        this.newProject = false
-      } else {
-        this.$http.post('/api/v1/projects', {
-          projects: {
-            title: this.projectTitle,
-          }
-        }, { headers: { token: this.token } }).then(response => {
-          toastr.success('Project created!');
-        }, response => {
-          toastr.error('Something got wrong');
-        });
-      }
+      if(this.projectTitle === "") return
+
+      this.$http.post('/api/v1/projects', {
+        projects: {
+          title: this.projectTitle,
+        }
+      }, { headers: { token: this.token } }).then(response => {
+        this.projects.push(response.body);
+        this.projectTitle = '';
+        this.hasProjects = true;
+        this.newProject = false;
+        toastr.success('Project created!');
+      }, response => {
+        toastr.error('Something got wrong');
+      });
+
     },
     createTask: function() {
       let input = document.querySelector(`#new-task-on-project-${this.projectId}`);
       input.classList.add('is-hidden');
 
-      if(this.taskTitle === "") return false
+      if(this.taskTitle === "") return
 
       this.$http.post(`/api/v1/projects/${this.projectId}/tasks`, {
         tasks: {
@@ -127,19 +132,31 @@
         toastr.error('Something got wrong');
       });
     },
-    deleteProject: function() {},
-    deleteTask: function(e) {
+    deleteProject: function(e) {
       let id = e.target.dataset.target;
 
-      this.$http.post(`/api/v1/projects/${this.projectId}/tasks`, {
-        tasks: {
-          title: this.taskTitle,
-        }
-      }, { headers: { token: this.token } }).then(response => {
-        this.taskTitle = '';
-        let projects = this.projects.find(project => project.id == this.projectId);
-        projects.tasks.push(response.body);
-        toastr.success('Task created!');
+      this.$http.delete(`/api/v1/projects/${id}`, {
+        headers: { token: this.token } 
+      }).then(response => {
+        let index = this.projects.findIndex(project => project.id === response.body.id);
+        this.projects.splice(index ,1);
+        this.hasProjects = this.projects.length !== 0;
+        toastr.success('Project archived!');
+      }, response => {
+        toastr.error('Something got wrong');
+      });
+    },
+    deleteTask: function(e) {
+      let id = e.target.dataset.target;
+      this.projectId = e.target.dataset.projectId;
+
+      this.$http.delete(`/api/v1/projects/${this.projectId}/tasks/${id}`, {
+        headers: { token: this.token } 
+      }).then(response => {
+        let project = this.projects.find(project => project.id == this.projectId);
+        let index = project.tasks.findIndex(task => task.id === response.body.id);
+        project.tasks.splice(index ,1);
+        toastr.success('Task archived!');
       }, response => {
         toastr.error('Something got wrong');
       });
@@ -168,5 +185,5 @@
       }
     },
   },
-}
-</script>
+    }
+  </script>
