@@ -13,8 +13,8 @@ class Project < ApplicationRecord
   private
 
   def archive_tasks
-    return unless status == "archived"
+    return unless status == 'archived'
 
-    tasks.each { |task| task.archived! }
+    tasks.each(&:archived!)
   end
 end
