@@ -15,7 +15,7 @@
           <div v-if="hasProjects">
             <ul class="projects">
               <template v-for="project in projects">
-                <li class="has-text-weight-bold" v-on:click.self="toggleTasks">
+                <li class="has-text-weight-bold" :data-target="project.id" v-on:click.self="toggleTasks">
                   <i class="fas fa-chevron-down is-size-7"></i> {{ project.title }}
                   <span class="has-text-weight-normal is-size-7"> {{ project.tasks.length }}</span>
                   <div class="is-pulled-right">
@@ -28,7 +28,7 @@
                   </div>
                 </li>
                 <input type="text" :id="'new-task-on-project-'+project.id" class="input is-hidden" placeholder="Type the title of task" v-model="taskTitle" v-on:keyup.enter="createTask">
-                <ul class="tasks">
+                <ul class="tasks" :id="'tasks-from-project-'+project.id">
                   <template v-for="task in project.tasks.filter(task => task.status == 'opened')">
                     <div class="column is-12">
                       <li>
@@ -162,13 +162,8 @@
       });
     },
     toggleTasks: function(e) {
-      if(e.target.classList.contains('fas')) {
-        var icon = e.target;
-        var tasks = e.target.parentNode.parentNode.lastChild;
-      } else {
-        var icon = e.target.firstElementChild;
-        var tasks = e.target.parentNode.lastChild;
-      }
+      var icon = e.target.firstElementChild;
+      var tasks = document.querySelector(`#tasks-from-project-${e.target.dataset.target}`);
 
       if(icon.classList.contains('fa-chevron-down')){
         icon.classList.remove('fa-chevron-down');
