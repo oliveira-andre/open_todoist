@@ -29,7 +29,7 @@
                 </li>
                 <input type="text" :id="'new-task-on-project-'+project.id" class="input is-hidden" placeholder="Type the title of task" v-model="taskTitle" v-on:keyup.enter="createTask">
                 <ul class="tasks" :id="'tasks-from-project-'+project.id">
-                  <template v-for="task in project.tasks.filter(task => task.status == 'opened')">
+                  <template v-for="task in project.tasks">
                     <div class="column is-12">
                       <li>
                         {{ task.title }}
