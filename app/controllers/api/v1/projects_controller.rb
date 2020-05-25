@@ -34,7 +34,7 @@ module Api
 
       def load_projects
         @projects = @user.projects.active.includes(:tasks)
-          .where(tasks: { status: 0 }).distinct
+                         .where(tasks: { status: 0 }).distinct
       end
 
       def load_project
