@@ -5,6 +5,10 @@ amazing tecnology
 
 ## running project
 
+if you need help with database postgres, you can install it easily on docker [using this image](https://gist.github.com/oliveira-andre/315ce4e915a24e0dfc9f88484c80be29)
+
+---
+
 going to ruby version 2.7.0
 
 ```
