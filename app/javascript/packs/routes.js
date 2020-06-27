@@ -4,7 +4,7 @@ Vue.use(VueRouter);
 
 import HomeIndex from './home/index';
 import LoginIndex from './login/index';
-import TodayIndex from './today/index';
+import TasksArchivedsIndex from './tasksArchiveds/index';
 import WeekIndex from './week/index';
 
 export default new VueRouter({
@@ -12,7 +12,7 @@ export default new VueRouter({
   routes: [
     { path: '/', component: HomeIndex },
     { path: '/login', component: LoginIndex },
-    { path: '/today', component: TodayIndex },
+    { path: '/archiveds', component: TasksArchivedsIndex },
     { path: '/week', component: WeekIndex },
   ],
 });
