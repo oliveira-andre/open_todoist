@@ -9,9 +9,9 @@
           </router-link>
         </li>
         <li v-on:click="switchCurrentTab">
-          <router-link to="/today">
+          <router-link to="/archiveds">
             <i class="far fa-calendar has-text-info is-size-6"></i>
-            Today
+            Archiveds
           </router-link>
         </li>
         <li v-on:click="switchCurrentTab">
