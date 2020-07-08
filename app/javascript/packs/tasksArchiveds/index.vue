@@ -31,6 +31,7 @@
         </ul>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -40,22 +41,22 @@
           token: '',
           hasProjects: false,
           projects: [],
-        },
-          created: function() {
-            this.token = localStorage.getItem('token');
-            if(this.token == null) {
-              this.$router.push('/login')
-            } else {
-              this.$http.get('/api/v1/projects', {
-                headers: { token: this.token }
-              }).then(response => {
-                if(response.status == 200) {
-                  this.projects = response.body;
-                  this.hasProjects = this.projects.length !== 0;
-                }
-              });
+        }
+      },
+      created: function() {
+        this.token = localStorage.getItem('token');
+        if(this.token == null) {
+          this.$router.push('/login')
+        } else {
+          this.$http.get('/api/v1/projects', {
+            headers: { token: this.token }
+          }).then(response => {
+            if(response.status == 200) {
+              this.projects = response.body;
+              this.hasProjects = this.projects.length !== 0;
             }
-          },
-      }
-    }  
+          });
+        }
+      },
+    }
 </script>
