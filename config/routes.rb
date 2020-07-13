@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       resources :projects, only: %i[index create destroy] do
         resources :tasks, only: %i[create destroy]
       end
+      namespace :alexa do
+        resources :flash_briefings, only: :index
+      end
     end
   end
 
