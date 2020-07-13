@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  default_scope -> { order(created_at: :desc) }
   enum status: { active: 0, finalized: 1, archived: 2 }
 
   validates :title, :status, presence: true
