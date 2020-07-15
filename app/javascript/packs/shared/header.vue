@@ -37,14 +37,14 @@ export default {
   methods: {
     toggleSidebar: function() {
       const sidebar = document.getElementById('bSidebar');
-      const body = document.getElementById('home');
+      const body = document.getElementById('app');
       
       if(sidebar.classList.contains('exited')){
         sidebar.classList.remove('exited');
-        home.classList.add('menu_show');
+        body.classList.add('menu_show');
       } else {
         sidebar.classList.add('exited');
-        home.classList.remove('menu_show');
+        body.classList.remove('menu_show');
       }
     },
     loadUser: function() {  
