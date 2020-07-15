@@ -2,7 +2,7 @@
   <div>
     <Header />
     <Sidebar />
-      <div>
+      <div id="app" class="menu_show">
         <router-view></router-view>
       </div>
   </div>
