@@ -1,14 +1,4 @@
 #home {
-  transition: 0.5s;
-
-  .container {
-    max-width: 1000px !important;
-  }
-
-  &.menu_show {
-    margin-left: 350px;
-  }
-
   .is-flex {
     justify-content: space-between;
   }

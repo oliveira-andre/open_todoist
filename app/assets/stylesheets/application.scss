@@ -50,6 +50,14 @@ input {
   }
 }
 
+#app {
+  transition: 0.5s;
+
+  &.menu_show {
+    margin-left: 350px;
+  }
+}
+
 .is-danger {
   background-color: #de4c4a !important;
 }
@@ -58,5 +66,9 @@ input {
   background-color: #282828 !important;
   padding: 30px;
   border-radius: 5px;
+}
+
+.container {
+  max-width: 1000px !important;
 }
 
