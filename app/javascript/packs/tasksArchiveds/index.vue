@@ -52,7 +52,7 @@
         if(this.token == null) {
           this.$router.push('/login')
         } else {
-          this.$http.get('/api/v1/projects', {
+          this.$http.get('/api/v1/projects?status=archiveds', {
             headers: { token: this.token }
           }).then(response => {
             if(response.status == 200) {
