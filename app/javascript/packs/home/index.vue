@@ -179,6 +179,6 @@
         tasks.classList.add('is-hidden');
       }
     },
-  },
-    }
+  }
+  }
   </script>
