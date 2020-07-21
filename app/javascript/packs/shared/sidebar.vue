@@ -33,27 +33,31 @@
         }
       },
       created: function() {
-        if(window.location.pathname !== '/login') {
-          this.token = localStorage.getItem('token');
-          if(this.token == null) {
-            this.$router.push('/login');
-          } else {
-            this.$http.get(`/api/v1/users/${this.token}`, {})
-              .then(response => {
-                if(response.status == 200) {
-                  this.current_user = response.body;
-                  this.is_signed_in = true
-                }
-              }, response => {
-                toastr.error('Not logged in');
-              }); 
-          }
-        }
+        checkIfSignedIn();
       },
       methods: {
         switchCurrentTab: function(event) {
           document.getElementsByClassName('current')[0].classList.remove('current');
           event.target.parentNode.classList.add('current');
+        },
+
+        checkIfSignedIn: function() {  
+          if(window.location.pathname !== '/login') {
+            this.token = localStorage.getItem('token');
+            if(this.token == null) {
+              this.$router.push('/login');
+            } else {
+              this.$http.get(`/api/v1/users/${this.token}`, {})
+                .then(response => {
+                  if(response.status == 200) {
+                    this.current_user = response.body;
+                    this.is_signed_in = true
+                  }
+                }, response => {
+                  toastr.error('Not logged in');
+                }); 
+            }
+          }
         },
       },
     }
