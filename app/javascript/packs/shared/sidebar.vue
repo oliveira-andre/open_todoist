@@ -58,13 +58,15 @@
         if (pathName == '/') { this.isHome = true }
         else if (pathName == '/archiveds') { this.isArchiveds = true; }
         else if (pathName == '/week') { this.isWeek = true; }
-
-        console.log({ home: this.isHome, archived: this.isArchiveds, week: this.isWeek })
       },
       methods: {
         switchCurrentTab: function(event) {
-          document.getElementsByClassName('current')[0].classList.remove('current');
-          event.target.parentNode.classList.add('current');
+          this.isHome = false; this.isArchiveds = false; this.isWeek = false;
+
+          let pathName = window.location.pathname;
+          if (pathName == '/') { this.isHome = true }
+          else if (pathName == '/archiveds') { this.isArchiveds = true; }
+          else if (pathName == '/week') { this.isWeek = true; }
         },
       },
     }
