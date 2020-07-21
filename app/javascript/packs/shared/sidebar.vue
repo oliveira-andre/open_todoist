@@ -60,7 +60,7 @@
         else if (pathName == '/week') { this.isWeek = true; }
       },
       methods: {
-        switchCurrentTab: function(event) {
+        switchCurrentTab: function() {
           this.isHome = false; this.isArchiveds = false; this.isWeek = false;
 
           let pathName = window.location.pathname;
