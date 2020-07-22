@@ -6,14 +6,14 @@ module Api
         before_action :load_projects
 
         def index
-          alexa_sales_briefing_response(projects: @projects)
+          success_response(data: @projects, status: :ok, model: 'Project')
         end
 
         private
 
         def load_projects
           @projects = @user.projects.active.includes(:tasks)
-            .where(tasks: { status: 0 }).distinct.limit(5)
+                           .where(tasks: { status: 0 }).distinct.limit(5)
         end
       end
     end
