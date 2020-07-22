@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_224823) do
     t.text "description"
     t.integer "status", default: 0, null: false
     t.datetime "schedule_date"
+    t.integer "order", default: 0, null: false
     t.bigint "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
