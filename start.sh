@@ -1,2 +1,2 @@
-bundle check || bundle install
+bundle install
 rm -f tmp/pids/server.pid && bundle exec foreman start
