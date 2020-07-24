@@ -21,5 +21,6 @@ services:
  
 volumes:
   postgres:
+  gems:
   web:
 
