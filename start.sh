@@ -1,2 +1,1 @@
-bundle install
-rm -f tmp/pids/server.pid && bundle exec foreman start
+bundle install && yarn install && bundle exec foreman start

@@ -14,12 +14,10 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-COPY Gemfile ./
+COPY . .
 
 RUN bundle install
 RUN yarn install
-
-COPY . .
 
 EXPOSE 3334
 
