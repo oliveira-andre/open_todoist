@@ -8,14 +8,14 @@ RUN apt-get update && apt-get install -qq -y --no-install-recommends \
   nodejs yarn build-essential libpq-dev imagemagick git-all vim
 
 
-RUN mkdir /gems
 ENV BUNDLE_PATH /gems
+RUN mkdir $BUNDLE_PATH
+
+COPY Gemfile .
 RUN bundle install
 
 ENV INSTALL_PATH /var/www/web_app
-
 RUN mkdir -p $INSTALL_PATH
-
 WORKDIR $INSTALL_PATH
 
 COPY . .
