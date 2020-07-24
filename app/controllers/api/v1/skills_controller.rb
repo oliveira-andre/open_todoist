@@ -12,7 +12,7 @@ module Api
 
       def load_projects
         @projects = @user.projects.active.includes(:tasks)
-          .where(tasks: { status: 0, order: 0..4 }).distinct.limit(5)
+          .where(tasks: { status: 0, order: 0..4 }).distinct.limit(3)
       end
     end
   end
