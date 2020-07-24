@@ -17,6 +17,7 @@ WORKDIR $INSTALL_PATH
 COPY Gemfile ./
 
 RUN bundle install
+RUN yarn install
 
 COPY . .
 
