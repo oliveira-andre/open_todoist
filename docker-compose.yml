@@ -12,7 +12,7 @@ services:
     build: .
     command: bash start.sh
     ports:
-      - '3000:3000'
+      - '3334:3334'
     volumes:
       - '.:/web_app'
       - gems:/gems
