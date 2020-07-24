@@ -16,7 +16,7 @@ WORKDIR $INSTALL_PATH
 
 COPY Gemfile ./
 
-ENV BUNDLE_PATH /gems
+RUN bundle install
 
 COPY . .
 
