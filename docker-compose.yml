@@ -14,7 +14,7 @@ services:
     ports:
       - '3334:3334'
     volumes:
-      - '.:/web_app'
+      - '.:/open_todoist'
       - gems:/gems
     depends_on:
       - postgres

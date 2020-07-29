@@ -14,7 +14,7 @@ RUN mkdir $BUNDLE_PATH
 COPY Gemfile .
 RUN bundle install
 
-ENV INSTALL_PATH /var/www/web_app
+ENV INSTALL_PATH /var/www/open_todoist
 RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 
