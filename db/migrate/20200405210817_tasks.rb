@@ -7,6 +7,7 @@ class Tasks < ActiveRecord::Migration[6.0]
       t.text :description
       t.integer :status, default: 0, null: false
       t.datetime :schedule_date
+      t.integer :order, default: 0, null: false
       t.references :project, foreign_key: true
 
       t.timestamps

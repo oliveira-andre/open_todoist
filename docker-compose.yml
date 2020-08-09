@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:9.5'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_PASSWORD: root
+
+  web_app:
+    build: .
+    command: bash start.sh
+    ports:
+      - '3334:3334'
+    volumes:
+      - '.:/open_todoist'
+      - gems:/gems
+    depends_on:
+      - postgres
+ 
+volumes:
+  postgres:
+  gems:
+  web:
+
