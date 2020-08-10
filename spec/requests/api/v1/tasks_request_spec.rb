@@ -7,13 +7,7 @@ RSpec.describe 'Task Management', type: :request do
     let(:current_path) { "/api/v1/projects/#{project.id}/tasks" }
 
     context 'invalid params and valid headers' do
-      let(:invalid_params) do
-        {
-          tasks: {
-            title: nil
-          }
-        }
-      end
+      let(:invalid_params) { { tasks: { title: nil } } }
       let(:valid_headers) { { 'token' => project.user.authentication_token } }
 
       before do
@@ -26,9 +20,7 @@ RSpec.describe 'Task Management', type: :request do
 
     context 'valid with params and headers' do
       let(:valid_params) do
-        {
-          tasks: attributes_for(:task, project: project)
-        }
+        { tasks: attributes_for(:task, project: project) }
       end
       let(:valid_headers) { { 'token' => project.user.authentication_token } }
       let(:keys_returned) { %w[id title description status schedule_date] }
@@ -38,9 +30,7 @@ RSpec.describe 'Task Management', type: :request do
       end
 
       it { expect(response).to have_http_status(:created) }
-      it do
-        expect(parsed_response.keys).to match_array(keys_returned)
-      end
+      it { expect(parsed_response.keys).to match_array(keys_returned) }
     end
   end
 end
