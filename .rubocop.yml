@@ -38,3 +38,5 @@ Style/Documentation:
   Description: 'Document classes and non-namespace modules.'
   Enabled: false
 
+Metrics/BlockLength:
+  Max: 100
