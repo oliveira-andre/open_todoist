@@ -12,9 +12,9 @@ module Api
       end
 
       def create
-        @project = Project.create!(projects_params)
+        @project = Project.create(projects_params)
 
-        if @project
+        if @project.valid?
           success_response(data: @project, model: 'Project', status: :created)
         else
           error_response

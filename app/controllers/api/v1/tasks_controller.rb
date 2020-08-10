@@ -9,7 +9,7 @@ module Api
       def create
         @task = Task.create(tasks_params)
 
-        if @task
+        if @task.valid?
           success_response(data: @task, model: 'Task', status: :created)
         else
           error_response
