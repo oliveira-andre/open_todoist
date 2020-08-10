@@ -4,30 +4,36 @@ RSpec.describe 'Task Management', type: :request do
   let!(:project) { create(:project) }
 
   context :create do
+    subject { post current_path, params: params, headers: headers }
     let(:current_path) { "/api/v1/projects/#{project.id}/tasks" }
 
-    context 'invalid params and valid headers' do
-      let(:invalid_params) { { tasks: { title: nil } } }
-      let(:valid_headers) { { 'token' => project.user.authentication_token } }
+    context 'invalid params' do
+      let(:params) { { tasks: { title: nil } } }
+      let(:headers) { { 'token' => project.user.authentication_token } }
 
-      before do
-        post current_path, params: invalid_params, headers: valid_headers
-      end
+      before { subject }
 
       it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(assigns(:task)).to_not be_valid }
     end
 
-    context 'valid with params and headers' do
-      let(:valid_params) do
+    context 'invalid headers' do
+      let(:params) do
         { tasks: attributes_for(:task, project: project) }
       end
-      let(:valid_headers) { { 'token' => project.user.authentication_token } }
+      let(:headers) { { 'token' => '' } }
+
+      it { expect { subject }.to raise_error(StandardError) }
+    end
+
+    context 'valid with params and headers' do
+      let(:params) do
+        { tasks: attributes_for(:task, project: project) }
+      end
+      let(:headers) { { 'token' => project.user.authentication_token } }
       let(:keys_returned) { %w[id title description status schedule_date] }
 
-      before do
-        post current_path, params: valid_params, headers: valid_headers
-      end
+      before { subject }
 
       it { expect(response).to have_http_status(:created) }
       it { expect(parsed_response.keys).to match_array(keys_returned) }
