@@ -33,7 +33,7 @@ module Api
 
       def tasks_params
         params.require(:tasks).permit(:title, :description)
-          .merge(project_id: @project.id)
+              .merge(project_id: @project.id)
       end
     end
   end

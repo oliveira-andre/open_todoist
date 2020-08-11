@@ -36,10 +36,10 @@ module Api
         @projects = case params[:status]
                     when 'archiveds'
                       @user.projects.archived.includes(:tasks)
-                        .where(tasks: { status: 2 }).distinct
+                           .where(tasks: { status: 2 }).distinct
                     else
                       @user.projects.active.includes(:tasks)
-                        .where(tasks: { status: 0 }).distinct
+                           .where(tasks: { status: 0 }).distinct
                     end
       end
 
