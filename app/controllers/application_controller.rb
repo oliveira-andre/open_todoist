@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
 
   def load_user
     @user = User&.find_by(authentication_token: request.headers['token'])
+
     return @user if @user
 
-    raise StandardError
+    raise ActiveRecord::RecordNotFound
   end
 end
