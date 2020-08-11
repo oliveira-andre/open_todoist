@@ -17,6 +17,13 @@ RSpec.describe 'Project Management' do
         it { expect(parsed_response).to_not be_empty }
         it { expect(parsed_response.last.keys).to match_array(project_keys) }
       end
+
+      context :tasks do
+        let(:tasks) { parsed_response.last['tasks'] }
+
+        it { expect(tasks).to_not be_empty }
+        it { expect(tasks.last.keys).to match_array(task_keys) }
+      end
     end
   end
 end
