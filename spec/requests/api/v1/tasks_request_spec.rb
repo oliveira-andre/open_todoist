@@ -23,7 +23,7 @@ RSpec.describe 'Task Management', type: :request do
       end
       let(:headers) { { 'token' => '' } }
 
-      it { expect { subject }.to raise_error(StandardError) }
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
     end
 
     context 'valid with params and headers' do
@@ -43,6 +43,20 @@ RSpec.describe 'Task Management', type: :request do
   context :destroy do
     subject { delete current_path, headers: headers }
     let(:current_path) { "/api/v1/projects/#{project.id}/tasks/#{task.id}" }
+
+    context 'invalid headers' do
+      let(:task) { create(:task, project: project) }
+      let(:headers) { { 'token' => '' } }
+
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context 'not found task' do
+      let(:current_path) { "/api/v1/projects/#{project.id}/tasks/:invalid_task" }
+      let(:headers) { { 'token' => project.user.authentication_token } }
+
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
 
     context 'valid task and headers' do
       let(:task) { create(:task, project: project) }
