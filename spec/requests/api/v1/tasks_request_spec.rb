@@ -39,4 +39,19 @@ RSpec.describe 'Task Management', type: :request do
       it { expect(parsed_response.keys).to match_array(keys_returned) }
     end
   end
+
+  context :destroy do
+    subject { delete current_path, headers: headers }
+    let(:current_path) { "/api/v1/projects/#{project.id}/tasks/#{task.id}" }
+
+    context 'valid task and headers' do
+      let(:task) { create(:task, project: project) }
+      let(:headers) { { 'token' => project.user.authentication_token } }
+
+      before { subject }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(parsed_response['status']).to eq('archived') }
+    end
+  end
 end
