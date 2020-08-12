@@ -5,10 +5,14 @@ RSpec.describe 'Project Management' do
     subject { get current_path, headers: headers }
     let(:current_path) { '/api/v1/projects' }
 
+    context 'invalid headers' do
+      let(:header) { { 'token' => '' } }
+    end
+
     context 'valid headers' do
       context "project don't exists" do
         let(:user) { create(:user) }
-        let(:headers) { { 'token': user.authentication_token } }
+        let(:headers) { { 'token' => user.authentication_token } }
 
         before { subject }
 
@@ -18,7 +22,7 @@ RSpec.describe 'Project Management' do
 
       context 'project exists' do
         let(:task) { create(:task) }
-        let(:headers) { { 'token': task.project.user.authentication_token } }
+        let(:headers) { { 'token' => task.project.user.authentication_token } }
         let(:project_keys) { %w[id title schedule_date tasks] }
         let(:task_keys) { %w[id title description status schedule_date] }
 
