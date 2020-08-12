@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails_helper'
+
 RSpec.describe 'Project Management' do
   context :index do
     subject { get current_path, headers: headers }
