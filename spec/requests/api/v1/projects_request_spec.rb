@@ -14,10 +14,10 @@ RSpec.describe 'Project Management' do
     end
 
     context 'valid headers' do
-      context "project don't exists" do
-        let(:user) { create(:user) }
-        let(:headers) { { 'token' => user.authentication_token } }
+      let(:user) { create(:user) }
+      let(:headers) { { 'token' => user.authentication_token } }
 
+      context "project don't exists" do
         before { subject }
 
         it { expect(response).to have_http_status(:ok) }
@@ -25,8 +25,7 @@ RSpec.describe 'Project Management' do
       end
 
       context 'project exists' do
-        let(:task) { create(:task) }
-        let(:headers) { { 'token' => task.project.user.authentication_token } }
+        let(:task) { create(:task, user: user) }
         let(:project_keys) { %w[id title schedule_date tasks] }
         let(:task_keys) { %w[id title description status schedule_date] }
 
@@ -45,6 +44,16 @@ RSpec.describe 'Project Management' do
           it { expect(tasks).to_not be_empty }
           it { expect(tasks.last.keys).to match_array(task_keys) }
         end
+      end
+    end
+  end
+
+  context :create do
+    subject { get current_path, headers: headers }
+    let(:current_path) { '/api/v1/projects' }
+
+    context 'valid headers' do
+      context 'valid params' do
       end
     end
   end
