@@ -25,7 +25,8 @@ RSpec.describe 'Project Management' do
       end
 
       context 'project exists' do
-        let(:task) { create(:task, user: user) }
+        let!(:project) { create(:project, user: user) }
+        let!(:task) { create(:task, project: project) }
         let(:project_keys) { %w[id title schedule_date tasks] }
         let(:task_keys) { %w[id title description status schedule_date] }
 
@@ -49,11 +50,23 @@ RSpec.describe 'Project Management' do
   end
 
   context :create do
-    subject { get current_path, headers: headers }
+    subject { post current_path, params: params, headers: headers }
     let(:current_path) { '/api/v1/projects' }
 
     context 'valid headers' do
+      let(:user) { create(:user) }
+      let(:headers) { { 'token' => user.authentication_token } }
+
       context 'valid params' do
+        let(:params) { { projects: attributes_for(:project) } }
+        let(:project_keys) { %w[id title schedule_date tasks] }
+
+        before { subject }
+
+        it { expect(response).to have_http_status(:created) }
+
+        it { expect(parsed_response.keys).to match_array(project_keys) }
+        it { expect(Project.active).to_not be_empty }
       end
     end
   end
