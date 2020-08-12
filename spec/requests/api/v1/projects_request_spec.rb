@@ -7,6 +7,8 @@ RSpec.describe 'Project Management' do
 
     context 'invalid headers' do
       let(:header) { { 'token' => '' } }
+
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
     end
 
     context 'valid headers' do
