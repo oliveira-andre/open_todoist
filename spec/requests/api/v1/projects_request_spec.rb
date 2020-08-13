@@ -53,6 +53,13 @@ RSpec.describe 'Project Management' do
     subject { post current_path, params: params, headers: headers }
     let(:current_path) { '/api/v1/projects' }
 
+    context 'invalid headers' do
+      let(:headers) { { 'token' => '' } }
+      let(:params) { { projects: attributes_for(:project) } }
+
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+
     context 'valid headers' do
       let(:user) { create(:user) }
       let(:headers) { { 'token' => user.authentication_token } }
