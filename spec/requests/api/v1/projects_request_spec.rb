@@ -73,7 +73,6 @@ RSpec.describe 'Project Management' do
         before { subject }
 
         it { expect(response).to have_http_status(:created) }
-
         it { expect(parsed_response.keys).to match_array(project_keys) }
         it { expect(Project.active).to_not be_empty }
       end
