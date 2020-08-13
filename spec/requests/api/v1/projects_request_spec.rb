@@ -57,6 +57,15 @@ RSpec.describe 'Project Management' do
       let(:user) { create(:user) }
       let(:headers) { { 'token' => user.authentication_token } }
 
+      context 'invalid params' do
+        let(:params) { { projects: { title: nil } } }
+
+        before { subject }
+
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+        it { expect(Project.all).to be_empty }
+      end
+
       context 'valid params' do
         let(:params) { { projects: attributes_for(:project) } }
         let(:project_keys) { %w[id title schedule_date tasks] }
