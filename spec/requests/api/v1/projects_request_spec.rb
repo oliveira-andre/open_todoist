@@ -85,4 +85,17 @@ RSpec.describe 'Project Management' do
       end
     end
   end
+
+  context :destroy do
+    subject { delete current_path, headers: headers }
+    let(:current_path) { "/api/v1/projects/#{project.id}" }
+
+    context 'valid headers' do
+      let(:user) { create(:user) }
+      let(:headers) { { 'token' => user.authentication_token } }
+
+      context 'project exists' do
+      end
+    end
+  end
 end
