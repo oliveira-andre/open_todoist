@@ -95,6 +95,12 @@ RSpec.describe 'Project Management' do
       let(:headers) { { 'token' => user.authentication_token } }
 
       context 'project exists' do
+        let(:project) { create(:project, user: user) }
+
+        before { subject }
+
+        it { expect(response).to have_http_status(:ok) }
+        it { expect(Project.find(project.id).status).to eq('archived') }
       end
     end
   end
