@@ -11,16 +11,24 @@ if you need help with database postgres, you can install it easily on docker [us
 
 ---
 
-going to ruby version 2.7.0
+going to ruby version 2.7.1
 
 ```
-rbenv shell 2.7.0
+rbenv shell 2.7.1
 ```
 
 installing dependencies
 
 ```
 bundle install
+```
+
+config database.yml or create a dotenv my example:
+
+```
+db_user=root
+db_pass=root
+db_host=127.0.0.1
 ```
 
 starting server rails and webpack
