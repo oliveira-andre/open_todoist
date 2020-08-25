@@ -39,6 +39,22 @@ bundle exec foreman start
 
 ## API
 
+### Authenticity token
+
+<details>
+  <summary>Get</summary>
+
+  - curl:
+    ```shell
+    curl -X "GET" 'http://localhost:3000' --cookie-jar cookie | grep csrf
+    ```
+
+  - return:
+    ```HTML
+    <meta name="csrf-token" content="+io2dtE6WwojAf+w1Uc0zuObAOOZ7INTyGT5M5wjagWEUw3O5M3fZrun4HHbLYouFDhn5rl5Seuo1PJgCTNJTg==" />
+    ```
+</details>
+
 ### Session
 
 <details>
