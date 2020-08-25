@@ -37,3 +37,10 @@ starting server rails and webpack
 bundle exec foreman start
 ```
 
+## API
+
+### Session
+
+<details>
+  <summary>Create</summary>
+</details>
