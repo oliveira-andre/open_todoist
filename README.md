@@ -74,3 +74,21 @@ bundle exec foreman start
     }
     ```
 </details>
+
+### Projects
+
+<details>
+  <summary>Get</summary>
+  
+  - curl:
+    ```shell
+    curl -kv -H 'Content-Type: application/json' -H 'token: 2yPsyWBjLPci4xoyzaG4' --cookie cookie -X 'GET' "http://localhost:3000/api/v1/projects" | jq
+    ```
+
+    - status_code: 200 Ok
+
+    - return:
+      ```json
+      []
+      ```
+</details>
