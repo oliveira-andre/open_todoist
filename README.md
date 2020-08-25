@@ -59,4 +59,18 @@ bundle exec foreman start
 
 <details>
   <summary>Create</summary>
+
+  - curl:
+    ```shell
+    curl -kv -H 'Content-Type: application/json' -d '{"users": { "email": "root@root.com", "password": "123456"}, "authenticity_token": "eZHlcA3MW7i4Kfl6lo4i7wvE6V54x3SZcdIvWYXT5idHpnjTFgA+rjIzFbp78L3jnXLmAnVcSEA2rBHpw7JbOA==" }' --cookie cookie -X 'POST' "http://localhost:3000/api/v1/sessions" | jq
+    ```
+  
+  - status_code: 201 Created
+
+  - return:
+    ```json
+    {
+      "authentication_token": "2yPsyWBjLPci4xoyzaG4"
+    }
+    ```
 </details>
