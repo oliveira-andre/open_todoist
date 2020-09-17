@@ -5,6 +5,20 @@ require 'rails_helper'
 RSpec.describe 'Task Management', type: :request do
   let!(:project) { create(:project) }
 
+  context :index do
+    subject { post current_path, headers: headers }
+    let(:current_path) { "/api/v1/projects/#{project.id}/tasks" }
+
+    context 'invalid headers' do
+      let(:params) do
+        { tasks: attributes_for(:task, project: project) }
+      end
+      let(:headers) { { 'token' => '' } }
+
+      it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+  end
+
   context :create do
     subject { post current_path, params: params, headers: headers }
     let(:current_path) { "/api/v1/projects/#{project.id}/tasks" }
