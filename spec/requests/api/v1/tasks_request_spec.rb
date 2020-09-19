@@ -10,9 +10,6 @@ RSpec.describe 'Task Management', type: :request do
     let(:current_path) { "/api/v1/projects/#{project.id}/tasks" }
 
     context 'invalid headers' do
-      let(:params) do
-        { tasks: attributes_for(:task, project: project) }
-      end
       let(:headers) { { 'token' => '' } }
 
       it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
