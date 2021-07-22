@@ -22,5 +22,6 @@ COPY . .
 
 RUN yarn install
 
-EXPOSE 3334
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
+EXPOSE 3334
