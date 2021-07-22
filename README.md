@@ -7,34 +7,38 @@ amazing tecnology
 
 ## running project
 
-if you need help with database postgres, you can install it easily on docker [using this image](https://gist.github.com/oliveira-andre/315ce4e915a24e0dfc9f88484c80be29)
-
----
-
-going to ruby version 2.7.1
-
-```
-rbenv shell 2.7.1
-```
-
-installing dependencies
-
-```
-bundle install
-```
-
-config database.yml or create a dotenv my example:
-
+config dotenv variables:
 ```
 db_user=root
 db_pass=root
-db_host=127.0.0.1
+db_host=postgres
 ```
 
 starting server rails and webpack
-
 ```
-bundle exec foreman start
+sudo docker-compose up --build
+```
+
+create and migrate database:
+```
+sudo docker-compose run --rm web_app rails db:create db:migrate
+```
+
+## How run tests
+
+rspec
+```
+sudo docker-compose run --rm web_app rspec
+```
+
+rubocop
+```
+sudo docker-compose run --rm web_app rubocop -A
+```
+
+brakeman
+```
+sudo docker-compose run --rm web_app brakeman
 ```
 
 ## API
